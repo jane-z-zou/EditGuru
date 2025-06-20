@@ -185,6 +185,7 @@ Your system should now be running:
 ## 🔗 Repo
 
 > 🔗 **GitHub Repo:** [https://github.com/jane-z-zou/editguru](https://github.com/jane-z-zou/editguru)
+> 🎬 Demo Video: [Demo Link on YouTube](https://youtu.be/hC_2CqlVkBg?feature=shared)
 
 ---
 
