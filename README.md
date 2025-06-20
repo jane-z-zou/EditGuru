@@ -2,6 +2,8 @@
 
 **EditGuru** is a Canva app extension that makes group collaboration measurable and fair. Built for classrooms, creative teams, and client-facing projects, it tracks **who edited what**, **how much**, and **when** — turning invisible effort into visible insight.
 
+> ⚠️ **Note:** This README focuses solely on the **EditGuru (Edit Tracker)** feature. Other features such as Beat Syncer and Visual Prompt Generator are part of the broader extension project but are not part of this submission.
+
 ---
 
 ## 🔍 Problem Understanding
@@ -36,7 +38,7 @@ The system is designed as a modular React app running inside Canva’s App SDK, 
 * Uses Canva’s design system for native UI/UX feel
 * Feedback is generated using clear thresholds and edit ratios
 * Includes meaningful icons (🟢🟡🔴) for visual clarity
-* Modular code with functions like `handleSummarize()` and `formatDuration()` for readability
+* Modular code with reusable functions like `handleSummarize()` and `formatDuration()`
 
 ---
 
@@ -49,58 +51,144 @@ The system is designed as a modular React app running inside Canva’s App SDK, 
 
 ---
 
-## 🔧 Setup Instructions
+## ⚙️ Setup Instructions
 
-### Prerequisites
-
-* Node.js ≥ 16
-* Yarn or npm
-* Python ≥ 3.8
-* Canva Developer Access
-
-### Installation
-
-1. Clone the repo:
-
-   ```bash
-   git clone https://github.com/yourusername/editguru.git
-   cd editguru
-   ```
-
-2. Install frontend dependencies:
-
-   ```bash
-   yarn install
-   ```
-
-3. Start the frontend (Canva Extension):
-
-   ```bash
-   yarn dev
-   ```
-
-4. Start the backend:
-
-   ```bash
-   python canva_server.py
-   ```
+This project includes both a **frontend** (React + Canva SDK) and a lightweight **backend** (Python Flask). Below are updated instructions to install, run, and connect both systems correctly.
 
 ---
 
-## 🧪 How to Test
+### 🖼️ Frontend (React + Canva App UI Kit)
 
-1. Launch the Canva extension dev environment.
-2. Use the “✨ Try Example” button to simulate edits.
-3. Click “📋 Summarize Contributions” to generate the team breakdown.
-4. Explore individual feedback under “🎓 Individual Feedback.”
-5. Test sort/group/filter logic and the non-contributor toggle.
-6. Use “🗑 Refresh History” to clear state and try again.
+#### 1. Install Node.js
+
+Make sure Node.js (v16 or higher) is installed:
+
+```bash
+node -v
+```
+
+If not installed:
+
+* macOS: `brew install node`
+* Windows: [Download from nodejs.org](https://nodejs.org/)
+
+#### 2. Install dependencies
+
+```bash
+git clone https://github.com/jane-z-zou/editguru.git
+cd editguru
+npm install
+```
+
+#### 3. Start the frontend server
+
+```bash
+npm start
+```
+
+Expected output:
+
+```
+Frontend running on http://localhost:8080
+```
+
+#### 4. Register the app in Canva Developer Console
+
+* Go to [Canva Developer Portal](https://www.canva.com/developers/)
+* Create a new app and set your `manifest.json`:
+
+```json
+{
+  "base_url": "http://localhost:8080",
+  "entry_point": "extension.tsx"
+}
+```
+
+* Enable **Dev Mode** to preview your extension in Canva
+
+---
+
+### 🧠 Backend (Flask API server)
+
+> Your Flask backend (`canva_server.py`) runs on **port 5001**
+> A secondary backend (if applicable) may run on **port 3001**
+
+#### 1. Install Python
+
+Ensure Python ≥ 3.8 is installed:
+
+```bash
+python --version
+```
+
+#### 2. Set up virtual environment
+
+```bash
+python -m venv venv
+source venv/bin/activate        # macOS/Linux
+venv\Scripts\activate           # Windows
+```
+
+#### 3. Install dependencies
+
+```bash
+pip install flask flask-cors
+```
+
+Or:
+
+```bash
+pip install -r requirements.txt
+```
+
+#### 4. Start the Flask server
+
+```bash
+python canva_server.py
+```
+
+Expected output:
+
+```
+* Running on http://localhost:5001
+```
+
+---
+
+### 🔗 Connecting Frontend & Backend
+
+In `my_api.ts`, verify your endpoints point to the correct server:
+
+```ts
+const BASE_API = "http://localhost:5001"; // Flask API
+```
+
+Your system should now be running:
+
+| Component        | Port                                |
+| ---------------- | ----------------------------------- |
+| Frontend (React) | `http://localhost:8080`             |
+| Backend (Flask)  | `http://localhost:5001`             |
+| Secondary API    | `http://localhost:3001` (if needed) |
 
 ---
 
 ## 🛠 Future Improvements
 
-* Persistence with user-linked edit logs
-* Integration with Canva’s native user APIs
-* Privacy toggle for “viewer-only” summaries
-* Moderator mode to restrict edit logs by role
+* Cloud persistence for logs
+* Role-based visibility (student vs. instructor)
+* Exportable summaries (CSV, PDF)
+* AI feedback improvements using NLP
+
+---
+
+## 🔗 Repo
+
+> 🔗 **GitHub Repo:** [https://github.com/jane-z-zou/editguru](https://github.com/jane-z-zou/editguru)
+
+---
+
+## 📣 Credits
+
+Built by **Jane Zou** – PM in Big 4 Tax & Data Science
+Created for **Folioworks Challenge for Canva Extensions**
